@@ -42,7 +42,7 @@ namespace gameclub
         private bool IsOldPasswordCorrect()
         {
             string oldpassword = OldPasswordTextBox.Text;
-            string queryText = "SELECT password FROM users WHERE login='administrator'";
+            string queryText = "SELECT password FROM userlist WHERE login='administrator'";
             MainForm form = new MainForm();
             OleDbConnection connection = new OleDbConnection(form.connectionString);
             connection.Open();

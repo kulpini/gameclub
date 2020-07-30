@@ -13,6 +13,7 @@ namespace gameclub
 {
     public partial class LoginForm : Form
     {
+        public int userId;
         public string connectionString;
         public LoginForm()
         {
@@ -21,27 +22,41 @@ namespace gameclub
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
             string login = LoginComboBox.Text;
             string password = PasswordTextBox.Text;
-            if (CheckUser(login,password))
+            if (login == "")
+                MessageBox.Show("Не выбран пользователь!", "Ошибка!", MessageBoxButtons.OK);
+            else if (CheckUser(login, password))
+            {
+                userId = GetUserId(login);
                 this.DialogResult = DialogResult.OK;
+            }
             else
-                MessageBox.Show("Пользователь с таким именем/паролем не найден!","Ошибка!",MessageBoxButtons.OK);
+                MessageBox.Show("Пользователь с таким именем/паролем не найден!", "Ошибка!", MessageBoxButtons.OK);
         }
 
         private bool CheckUser(string login, string password)
         {
-            string queryText = "SELECT password FROM users WHERE login='" + login+"'";
+            string queryText = "SELECT password FROM userlist WHERE login='" + login+"'";
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbCommand command = new OleDbCommand(queryText, connection);
             string userpassword = Convert.ToString(command.ExecuteScalar());
             return userpassword == password;
+        }
+
+        private int GetUserId(string userlogin)
+        {
+            string queryText = "SELECT ID FROM userlist WHERE login='"+userlogin+"'";
+            OleDbConnection connection = new OleDbConnection(connectionString);
+            connection.Open();
+            OleDbCommand command = new OleDbCommand(queryText, connection);
+            return Convert.ToInt32(command.ExecuteScalar());
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -52,7 +67,7 @@ namespace gameclub
 
         private void FillTheUserList()
         {
-            string queryText = "SELECT login FROM users ORDER BY ID";
+            string queryText = "SELECT login FROM userlist ORDER BY ID";
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbCommand command = new OleDbCommand(queryText, connection);

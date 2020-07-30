@@ -99,7 +99,7 @@
             this.LoginComboBox.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LoginComboBox.FormattingEnabled = true;
             this.LoginComboBox.Location = new System.Drawing.Point(407, 111);
-            this.LoginComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoginComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.LoginComboBox.Name = "LoginComboBox";
             this.LoginComboBox.Size = new System.Drawing.Size(311, 28);
             this.LoginComboBox.TabIndex = 6;
@@ -108,7 +108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(938, 450);
             this.Controls.Add(this.LoginComboBox);
             this.Controls.Add(this.ExitButton);

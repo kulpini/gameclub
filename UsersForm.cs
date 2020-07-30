@@ -27,7 +27,7 @@ namespace gameclub
 
         private void ShowUsers()
         {
-            string queryText = "SELECT * FROM users WHERE login<>'administrator'";
+            string queryText = "SELECT * FROM userlist WHERE login<>'administrator' ORDER BY login";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryText, connectionString);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset, "users");
@@ -59,7 +59,7 @@ namespace gameclub
 
         private void DeleteUser(int userId)
         {
-            string queryText = "DELETE FROM users WHERE ID="+Convert.ToString(userId);
+            string queryText = "DELETE FROM userlist WHERE ID="+Convert.ToString(userId);
             ExecuteQuery(queryText);
         }
 
@@ -88,7 +88,7 @@ namespace gameclub
                     userLogin = editForm.UserLogin;
                     userPassword = editForm.Password;
                     userName = editForm.UserName;
-                    string queryText = "UPDATE users SET [login]='"+userLogin+"',[password]='"+userPassword+"',[username]='"+userName
+                    string queryText = "UPDATE userlist SET [login]='"+userLogin+"',[password]='"+userPassword+"',[username]='"+userName
                         +"' WHERE ID="+Convert.ToString(userId);
                     ExecuteQuery(queryText);
                     ShowUsers();
@@ -107,7 +107,7 @@ namespace gameclub
                 string userLogin = addForm.UserLogin;
                 string userPassword = addForm.Password;
                 string userName = addForm.UserName;
-                string queryText = "INSERT INTO users([login],[password],[username]) VALUES ('"+ userLogin + "','"+ userPassword + "','"+ userName + "'";
+                string queryText = "INSERT INTO userlist([login],[password],username) VALUES ('"+ userLogin + "','"+ userPassword + "','"+ userName + "')";
                 ExecuteQuery(queryText);
                 ShowUsers();
             }
