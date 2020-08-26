@@ -88,7 +88,7 @@ namespace gameclub
                     userLogin = editForm.UserLogin;
                     userPassword = editForm.Password;
                     userName = editForm.UserName;
-                    string queryText = "UPDATE userlist SET [login]='"+userLogin+"',[password]='"+userPassword+"',[username]='"+userName
+                    string queryText = "UPDATE userlist SET [login]='"+userLogin+"',[password]='"+ Crypto.EncodeDecrypt(userPassword) +"',[username]='"+userName
                         +"' WHERE ID="+Convert.ToString(userId);
                     ExecuteQuery(queryText);
                     ShowUsers();
@@ -107,7 +107,7 @@ namespace gameclub
                 string userLogin = addForm.UserLogin;
                 string userPassword = addForm.Password;
                 string userName = addForm.UserName;
-                string queryText = "INSERT INTO userlist([login],[password],username) VALUES ('"+ userLogin + "','"+ userPassword + "','"+ userName + "')";
+                string queryText = "INSERT INTO userlist([login],[password],username) VALUES ('"+ userLogin + "','"+ Crypto.EncodeDecrypt(userPassword) + "','"+ userName + "')";
                 ExecuteQuery(queryText);
                 ShowUsers();
             }

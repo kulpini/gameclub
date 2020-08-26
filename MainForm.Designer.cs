@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.StripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.UsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ComputersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TarificationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CategoriesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TariffsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DiscountsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ServicesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +44,7 @@
             this.ChangePasswordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.учётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.WorkedHoursMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.кассаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KassaReportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -59,6 +61,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.ComputersDataGrid = new System.Windows.Forms.DataGridView();
+            this.CashierReportButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -90,7 +93,7 @@
             this.StripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.UsersMenuItem,
             this.ComputersMenuItem,
-            this.TariffsMenuItem,
+            this.TarificationMenuItem,
             this.DiscountsMenuItem,
             this.ServicesMenuItem,
             this.toolStripSeparator1,
@@ -117,11 +120,27 @@
             this.ComputersMenuItem.Text = "Компьютеры...";
             this.ComputersMenuItem.Click += new System.EventHandler(this.ComputersMenuItem_Click);
             // 
+            // TarificationMenuItem
+            // 
+            this.TarificationMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CategoriesMenuItem,
+            this.TariffsMenuItem});
+            this.TarificationMenuItem.ForeColor = System.Drawing.Color.MediumBlue;
+            this.TarificationMenuItem.Name = "TarificationMenuItem";
+            this.TarificationMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.TarificationMenuItem.Text = "Тарификация";
+            // 
+            // CategoriesMenuItem
+            // 
+            this.CategoriesMenuItem.Name = "CategoriesMenuItem";
+            this.CategoriesMenuItem.Size = new System.Drawing.Size(150, 24);
+            this.CategoriesMenuItem.Text = "Категории";
+            this.CategoriesMenuItem.Click += new System.EventHandler(this.CategoriesMenuItem_Click);
+            // 
             // TariffsMenuItem
             // 
-            this.TariffsMenuItem.ForeColor = System.Drawing.Color.MediumBlue;
             this.TariffsMenuItem.Name = "TariffsMenuItem";
-            this.TariffsMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.TariffsMenuItem.Size = new System.Drawing.Size(150, 24);
             this.TariffsMenuItem.Text = "Тарифы";
             this.TariffsMenuItem.Click += new System.EventHandler(this.TariffsMenuItem_Click);
             // 
@@ -158,7 +177,7 @@
             // 
             this.учётToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.WorkedHoursMenuItem,
-            this.кассаToolStripMenuItem});
+            this.KassaReportMenuItem});
             this.учётToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.учётToolStripMenuItem.ForeColor = System.Drawing.Color.MediumBlue;
             this.учётToolStripMenuItem.Name = "учётToolStripMenuItem";
@@ -173,12 +192,13 @@
             this.WorkedHoursMenuItem.Text = "Отработанные часы";
             this.WorkedHoursMenuItem.Click += new System.EventHandler(this.WorkedHoursMenuItem_Click);
             // 
-            // кассаToolStripMenuItem
+            // KassaReportMenuItem
             // 
-            this.кассаToolStripMenuItem.ForeColor = System.Drawing.Color.MediumBlue;
-            this.кассаToolStripMenuItem.Name = "кассаToolStripMenuItem";
-            this.кассаToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
-            this.кассаToolStripMenuItem.Text = "Кассовый отчёт";
+            this.KassaReportMenuItem.ForeColor = System.Drawing.Color.MediumBlue;
+            this.KassaReportMenuItem.Name = "KassaReportMenuItem";
+            this.KassaReportMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.KassaReportMenuItem.Text = "Кассовый отчёт";
+            this.KassaReportMenuItem.Click += new System.EventHandler(this.KassaReportMenuItem_Click);
             // 
             // panel1
             // 
@@ -195,6 +215,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel4.Controls.Add(this.CashierReportButton);
             this.panel4.Controls.Add(this.panel7);
             this.panel4.Controls.Add(this.UserNameLabel);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -337,6 +358,9 @@
             // ComputersDataGrid
             // 
             this.ComputersDataGrid.AllowUserToAddRows = false;
+            this.ComputersDataGrid.AllowUserToResizeColumns = false;
+            this.ComputersDataGrid.AllowUserToResizeRows = false;
+            this.ComputersDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ComputersDataGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.ComputersDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ComputersDataGrid.ColumnHeadersVisible = false;
@@ -359,6 +383,22 @@
             this.ComputersDataGrid.TabIndex = 0;
             this.ComputersDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ComputersDataGrid_CellClick);
             // 
+            // CashierReportButton
+            // 
+            this.CashierReportButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.CashierReportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CashierReportButton.Font = new System.Drawing.Font("Times New Roman", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CashierReportButton.Image = ((System.Drawing.Image)(resources.GetObject("CashierReportButton.Image")));
+            this.CashierReportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CashierReportButton.Location = new System.Drawing.Point(496, 10);
+            this.CashierReportButton.Name = "CashierReportButton";
+            this.CashierReportButton.Size = new System.Drawing.Size(159, 45);
+            this.CashierReportButton.TabIndex = 4;
+            this.CashierReportButton.Text = "Кассовый отчет";
+            this.CashierReportButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CashierReportButton.UseVisualStyleBackColor = false;
+            this.CashierReportButton.Click += new System.EventHandler(this.CashierReportButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -373,6 +413,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Учёт игрового времени";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip.ResumeLayout(false);
@@ -399,7 +440,7 @@
         private System.Windows.Forms.ToolStripMenuItem StripMenu;
         private System.Windows.Forms.ToolStripMenuItem UsersMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ComputersMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TariffsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TarificationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DiscountsMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ChangePasswordMenuItem;
@@ -422,7 +463,10 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem ServicesMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem кассаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem KassaReportMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CategoriesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TariffsMenuItem;
+        private System.Windows.Forms.Button CashierReportButton;
     }
 }
 

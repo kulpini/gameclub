@@ -15,6 +15,7 @@ namespace gameclub
     public partial class TariffForm : Form
     {
         public string connectionString;
+        private int categoryId;
         public TariffForm()
         {
             InitializeComponent();
@@ -39,18 +40,30 @@ namespace gameclub
 
         private void TafiffForm_Load(object sender, EventArgs e)
         {
-            ShowTariffs();
+            FillCategoryList();
+        }
+
+        private void FillCategoryList()
+        {
+            string queryText = "SELECT * FROM categories ORDER BY category";
+            OleDbDataAdapter adapter = new OleDbDataAdapter(queryText, connectionString);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            CategoryComboBox.DataSource = table;
+            CategoryComboBox.DisplayMember = "category";
+            CategoryComboBox.ValueMember = "ID";
         }
 
         private void ShowTariffs()
         {
-            string queryText = "SELECT * FROM tariffs ORDER BY tariffname";
+            string queryText = "SELECT * FROM tariffs WHERE categoryID="+Convert.ToString(categoryId)+" ORDER BY tariffname";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryText, connectionString);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset, "tariffs");
             TariffsDataGrid.DataSource = dataset.Tables["tariffs"].DefaultView;
             TariffsDataGrid.Columns["ID"].Visible = false;
-            TariffsDataGrid.Columns["tariffname"].Width = 150;
+            TariffsDataGrid.Columns["tariffname"].Width = 210;
+            TariffsDataGrid.Columns["categoryID"].Visible = false;
         }
 
         private void DeleteTariff(int tariffId)
@@ -66,7 +79,6 @@ namespace gameclub
             OleDbCommand command = new OleDbCommand(queryText, connection);
             command.ExecuteNonQuery();
             connection.Close();
-
         }
 
         private void EditButton_Click(object sender, EventArgs e)
@@ -100,7 +112,7 @@ namespace gameclub
 
         private void ShowIntervals(int tariffId)
         {
-            string queryText = "SELECT startInterval,endInterval,price FROM intervals WHERE tariffID=" + Convert.ToString(tariffId)+" ORDER BY startInterval";
+            string queryText = "SELECT startInterval,endInterval,price,fixed FROM intervals WHERE tariffID=" + Convert.ToString(tariffId)+" ORDER BY startInterval";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryText, connectionString);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset, "intervals");
@@ -110,7 +122,25 @@ namespace gameclub
             IntervalsDataGrid.Columns["endInterval"].HeaderText = "кон.,мин.";
             IntervalsDataGrid.Columns["endInterval"].Width = 80;
             IntervalsDataGrid.Columns["price"].HeaderText = "стоимость.,грн.";
+            IntervalsDataGrid.Columns["price"].Width = 150;
+            IntervalsDataGrid.Columns["fixed"].HeaderText ="Фиксир.стоим.";
             IntervalsDataGrid.Columns["price"].Width = 120;
+        }
+
+        private void CategoryButton_Click(object sender, EventArgs e)
+        {
+            CategoriesForm categoriesForm = new CategoriesForm { connectionString = this.connectionString };
+            categoriesForm.ShowDialog();
+        }
+
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataRowView row = CategoryComboBox.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                categoryId = Convert.ToInt32(row["ID"]);
+                ShowTariffs();
+            }
         }
     }
 }

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCategoryForm.Designer.cs">
+      <DependentUpon>AddCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddComputerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,24 @@
     <Compile Include="AddUserForm.Designer.cs">
       <DependentUpon>AddUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ApplyingServicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplyingServicesForm.Designer.cs">
+      <DependentUpon>ApplyingServicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CashReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashReportForm.Designer.cs">
+      <DependentUpon>CashReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoriesForm.Designer.cs">
+      <DependentUpon>CategoriesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,11 +106,18 @@
     <Compile Include="ComputersForm.Designer.cs">
       <DependentUpon>ComputersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Crypto.cs" />
     <Compile Include="DiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DiscountForm.Designer.cs">
       <DependentUpon>DiscountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InvoiceForm.Designer.cs">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -100,13 +131,31 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PaymentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaymentForm.Designer.cs">
+      <DependentUpon>PaymentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportRequestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportRequestForm.Designer.cs">
+      <DependentUpon>ReportRequestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServicesForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ServicesForm.Designer.cs">
       <DependentUpon>ServicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartPlayingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartPlayingForm.Designer.cs">
+      <DependentUpon>StartPlayingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TariffForm.cs">
       <SubType>Form</SubType>
@@ -126,6 +175,9 @@
     <Compile Include="WorkedHoursForm.Designer.cs">
       <DependentUpon>WorkedHoursForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddCategoryForm.resx">
+      <DependentUpon>AddCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddComputerForm.resx">
       <DependentUpon>AddComputerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -138,6 +190,15 @@
     <EmbeddedResource Include="AddUserForm.resx">
       <DependentUpon>AddUserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ApplyingServicesForm.resx">
+      <DependentUpon>ApplyingServicesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashReportForm.resx">
+      <DependentUpon>CashReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoriesForm.resx">
+      <DependentUpon>CategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,11 +208,17 @@
     <EmbeddedResource Include="DiscountForm.resx">
       <DependentUpon>DiscountForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InvoiceForm.resx">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaymentForm.resx">
+      <DependentUpon>PaymentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -162,8 +229,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReportRequestForm.resx">
+      <DependentUpon>ReportRequestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServicesForm.resx">
       <DependentUpon>ServicesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartPlayingForm.resx">
+      <DependentUpon>StartPlayingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TariffForm.resx">
       <DependentUpon>TariffForm.cs</DependentUpon>

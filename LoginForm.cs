@@ -47,7 +47,7 @@ namespace gameclub
             connection.Open();
             OleDbCommand command = new OleDbCommand(queryText, connection);
             string userpassword = Convert.ToString(command.ExecuteScalar());
-            return userpassword == password;
+            return Crypto.EncodeDecrypt(userpassword) == password;
         }
 
         private int GetUserId(string userlogin)

@@ -14,6 +14,10 @@ namespace gameclub
 {
     public partial class AddTariffForm : Form
     {
+        public int CategoryId
+        {
+            get { return GetCategoryId(); }
+        }
         public string connectionString;
         public string TariffName
         {
@@ -31,6 +35,21 @@ namespace gameclub
             InitializeComponent();
         }
 
+        private int GetCategoryId()
+        {
+            if (CategoryComboBox.Text != "")
+            {
+                string queryText = "SELECT ID FROM categories WHERE category='" + CategoryComboBox.Text + "'";
+                OleDbConnection connection = new OleDbConnection(connectionString);
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(queryText, connection);
+                int id = Convert.ToInt32(command.ExecuteScalar());
+                connection.Close();
+                return id;
+            }
+            else return 0;
+        }
+
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -38,12 +57,16 @@ namespace gameclub
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (NameTextBox.Text.Trim() == "")
+            if (CategoryComboBox.Text=="")
+                MessageBox.Show("Не задана категория тарифа!", "ошибка!", MessageBoxButtons.OK);
+            else if (NameTextBox.Text.Trim() == "")
                 MessageBox.Show("Не задано название тарифа!","ошибка!",MessageBoxButtons.OK); 
             else if (IntervalsDataGrid.RowCount==0)
                 MessageBox.Show("Не заданы интервалы тарифа!", "ошибка!", MessageBoxButtons.OK);
             else
             {
+                int rowCount = IntervalsDataGrid.RowCount;
+                IntervalsDataGrid[1, rowCount - 1].Value = 720;
                 if (CheckGridRows())
                 {
                     if (TariffId != 0)
@@ -57,7 +80,7 @@ namespace gameclub
 
         private void UpdateTariff()
         {
-            string queryText = "UPDATE tariffs SET tariffname='" + TariffName + "' WHERE ID=" + Convert.ToString(TariffId);
+            string queryText = "UPDATE tariffs SET tariffname='" + TariffName + "', categoryID="+CategoryId+" WHERE ID=" + Convert.ToString(TariffId);
             ExecuteQuery(queryText);
             queryText = "DELETE FROM intervals WHERE tariffID="+Convert.ToString(TariffId);
             ExecuteQuery(queryText);
@@ -74,6 +97,7 @@ namespace gameclub
         {
             IntervalsDataGrid.Rows.Add();
             IntervalsDataGrid[0, number].Value = number == 0? 0 : IntervalsDataGrid[1, number - 1].Value;
+            IntervalsDataGrid[1, number].Value = 720;
         }
 
         private bool CheckGridRows()
@@ -119,22 +143,33 @@ namespace gameclub
 
         private void SaveTariff()
         {
-            string queryText = "INSERT INTO tariffs(tariffname) VALUES ('"+TariffName+"')";
+            string queryText = "INSERT INTO tariffs(tariffname,categoryID) VALUES ('"+TariffName+"',"+Convert.ToString(CategoryId)+")";
             int tariffId = AppendTariff(queryText);
             SaveIntervals(tariffId);
         }
 
         private void SaveIntervals(int tariffId)
         {
-            string queryText, start, end, amount;
+            int start, end;
+            double amount;
+            bool fixedAmount;
             for (int i = 0; i < IntervalsDataGrid.RowCount; i++)
             {
-                start = Convert.ToString(IntervalsDataGrid[0, i].Value);
-                end = Convert.ToString(IntervalsDataGrid[1, i].Value);
-                amount = Convert.ToString(IntervalsDataGrid[2, i].Value);
-                queryText = "INSERT INTO intervals (tariffID,startInterval,endInterval,price) VALUES (" +
-                    Convert.ToString(tariffId) + "," + start + "," + end + "," + amount + ")";
-                ExecuteQuery(queryText);
+                start = Convert.ToInt32(IntervalsDataGrid[0, i].Value);
+                end = Convert.ToInt32(IntervalsDataGrid[1, i].Value);
+                amount = Convert.ToDouble(IntervalsDataGrid[2, i].Value);
+                fixedAmount = Convert.ToBoolean(IntervalsDataGrid[3, i].Value);
+                OleDbConnection connection = new OleDbConnection(connectionString);
+                connection.Open();
+                OleDbCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO intervals (tariffID,startInterval,endInterval,price,fixed) VALUES (@tariff,@start,@end,@price,@fixed)";
+                command.Parameters.AddWithValue("@tariff", tariffId);
+                command.Parameters.AddWithValue("@start", start);
+                command.Parameters.AddWithValue("@end", end);
+                command.Parameters.AddWithValue("@price", amount);
+                command.Parameters.AddWithValue("@fixed", fixedAmount);
+                command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
@@ -165,7 +200,7 @@ namespace gameclub
             {
                 int start = Convert.ToInt32(IntervalsDataGrid[0, rowindex].Value);
                 int end = Convert.ToInt32(IntervalsDataGrid[1, rowindex].Value);
-                int amount = Convert.ToInt32(IntervalsDataGrid[2, rowindex].Value);
+                double amount = Convert.ToDouble(IntervalsDataGrid[2, rowindex].Value);
                 return CheckInterval(start, end, rowindex);
             }
             catch
@@ -213,8 +248,34 @@ namespace gameclub
 
         private void AddTariffForm_Load(object sender, EventArgs e)
         {
-            if (TariffId!=0)
+            FillCategoryList();
+            if (TariffId != 0)
+            {
+                ChooseCategoryFromList(TariffId);
                 ShowIntervals();
+            }
+            else CategoryComboBox.SelectedIndex = -1;
+        }
+
+        private void FillCategoryList()
+        {
+            string queryText = "SELECT * FROM categories ORDER BY category";
+            OleDbDataAdapter adapter = new OleDbDataAdapter(queryText, connectionString);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            CategoryComboBox.DataSource = table;
+            CategoryComboBox.ValueMember = "ID";
+            CategoryComboBox.DisplayMember = "category";
+        }
+
+        private void ChooseCategoryFromList(int tariffId)
+        {
+            string queryText = "SELECT categoryId FROM tariffs WHERE ID="+Convert.ToString(tariffId);
+            OleDbConnection connection = new OleDbConnection(connectionString);
+            connection.Open();
+            OleDbCommand command = new OleDbCommand(queryText, connection);
+            int id = Convert.ToInt32(command.ExecuteScalar());
+            CategoryComboBox.SelectedValue = id;
         }
 
         private void ShowIntervals()
@@ -222,8 +283,8 @@ namespace gameclub
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT startInterval,endInterval,price FROM intervals WHERE tariffID=@tariff ORDER BY startInterval";
-            command.Parameters.AddWithValue("tariff",TariffId);
+            command.CommandText = "SELECT startInterval,endInterval,price,fixed FROM intervals WHERE tariffID=@tariff ORDER BY startInterval";
+            command.Parameters.AddWithValue("@tariff",TariffId);
             OleDbDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -234,12 +295,14 @@ namespace gameclub
                     IntervalsDataGrid[0, i].Value = Convert.ToString(reader.GetValue(0));
                     IntervalsDataGrid[1, i].Value = Convert.ToString(reader.GetValue(1));
                     IntervalsDataGrid[2, i].Value = Convert.ToString(reader.GetValue(2));
+                    IntervalsDataGrid[3, i].Value = Convert.ToBoolean(reader.GetValue(3));
                     i++;
                 }
             }
-            IntervalsDataGrid.Columns[0].Width =125;
-            IntervalsDataGrid.Columns[1].Width =125;
+            IntervalsDataGrid.Columns[0].Width =100;
+            IntervalsDataGrid.Columns[1].Width =100;
             IntervalsDataGrid.Columns[2].Width =160;
+            IntervalsDataGrid.Columns[2].Width = 90;
             reader.Close();
             connection.Close();
         }

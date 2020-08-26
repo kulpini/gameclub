@@ -46,6 +46,9 @@
             this.start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.end = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fix = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CategoryComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -56,19 +59,21 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CategoryComboBox);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.NameTextBox);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(718, 69);
+            this.panel1.Size = new System.Drawing.Size(780, 157);
             this.panel1.TabIndex = 12;
             // 
             // NameTextBox
             // 
             this.NameTextBox.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NameTextBox.Location = new System.Drawing.Point(191, 17);
+            this.NameTextBox.Location = new System.Drawing.Point(198, 85);
             this.NameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(515, 34);
@@ -78,7 +83,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 20);
+            this.label1.Location = new System.Drawing.Point(19, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 26);
             this.label1.TabIndex = 4;
@@ -89,10 +94,10 @@
             this.panel2.Controls.Add(this.ExitButton);
             this.panel2.Controls.Add(this.SaveButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 467);
+            this.panel2.Location = new System.Drawing.Point(0, 591);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(718, 73);
+            this.panel2.Size = new System.Drawing.Size(780, 73);
             this.panel2.TabIndex = 13;
             // 
             // ExitButton
@@ -101,7 +106,7 @@
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ExitButton.ForeColor = System.Drawing.Color.MediumBlue;
-            this.ExitButton.Location = new System.Drawing.Point(399, 9);
+            this.ExitButton.Location = new System.Drawing.Point(579, 9);
             this.ExitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(185, 54);
@@ -130,10 +135,10 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 69);
+            this.panel3.Location = new System.Drawing.Point(0, 157);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(718, 398);
+            this.panel3.Size = new System.Drawing.Size(780, 434);
             this.panel3.TabIndex = 14;
             // 
             // panel5
@@ -141,10 +146,10 @@
             this.panel5.Controls.Add(this.DeleteButton);
             this.panel5.Controls.Add(this.AddButton);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(608, 0);
+            this.panel5.Location = new System.Drawing.Point(672, 0);
             this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(110, 398);
+            this.panel5.Size = new System.Drawing.Size(108, 434);
             this.panel5.TabIndex = 1;
             // 
             // DeleteButton
@@ -183,7 +188,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
-            this.panel4.Size = new System.Drawing.Size(608, 398);
+            this.panel4.Size = new System.Drawing.Size(672, 434);
             this.panel4.TabIndex = 0;
             // 
             // IntervalsDataGrid
@@ -201,7 +206,8 @@
             this.IntervalsDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.start,
             this.end,
-            this.amount});
+            this.amount,
+            this.fix});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -217,7 +223,7 @@
             this.IntervalsDataGrid.RowHeadersVisible = false;
             this.IntervalsDataGrid.RowHeadersWidth = 51;
             this.IntervalsDataGrid.RowTemplate.Height = 24;
-            this.IntervalsDataGrid.Size = new System.Drawing.Size(586, 378);
+            this.IntervalsDataGrid.Size = new System.Drawing.Size(650, 414);
             this.IntervalsDataGrid.TabIndex = 0;
             this.IntervalsDataGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.IntervalsDataGrid_CellEnter);
             // 
@@ -244,17 +250,45 @@
             this.amount.MinimumWidth = 6;
             this.amount.Name = "amount";
             this.amount.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.amount.Width = 160;
+            this.amount.Width = 140;
+            // 
+            // fix
+            // 
+            this.fix.HeaderText = "фиксир.стоим.";
+            this.fix.MinimumWidth = 6;
+            this.fix.Name = "fix";
+            this.fix.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.fix.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.fix.Width = 120;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(19, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(124, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Категория";
+            // 
+            // CategoryComboBox
+            // 
+            this.CategoryComboBox.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CategoryComboBox.FormattingEnabled = true;
+            this.CategoryComboBox.Location = new System.Drawing.Point(198, 20);
+            this.CategoryComboBox.Name = "CategoryComboBox";
+            this.CategoryComboBox.Size = new System.Drawing.Size(515, 34);
+            this.CategoryComboBox.TabIndex = 7;
             // 
             // AddTariffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(718, 540);
+            this.ClientSize = new System.Drawing.Size(780, 664);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
@@ -291,5 +325,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn start;
         private System.Windows.Forms.DataGridViewTextBoxColumn end;
         private System.Windows.Forms.DataGridViewTextBoxColumn amount;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn fix;
+        private System.Windows.Forms.ComboBox CategoryComboBox;
+        private System.Windows.Forms.Label label2;
     }
 }
