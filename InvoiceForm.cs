@@ -89,10 +89,13 @@ namespace gameclub
             DateTime finish = reader.GetDateTime(1);
             TimeSpan elapsed = finish-start;
             int gameamount = reader.GetInt32(2);
-            GameSumLabel.Text = Convert.ToString(gameamount);
             int discount = reader.GetInt32(4);
+            double totalgameamount = 100 * gameamount / (100 - discount);
+            totalgameamount = Math.Round(totalgameamount);
+            GameSumLabel.Text = Convert.ToString(totalgameamount);
+            
             DiscountLabel.Text = Convert.ToString(discount);
-            int discountsum = (int)(gameamount * discount / 100);
+            int discountsum = gameamount - (int)totalgameamount;
             DiscountSumLabel.Text = Convert.ToString(discountsum);
             NameLabel.Text = reader.GetString(5);
             SessionTimeLabel.Text = elapsed.ToString("hh':'mm':'ss");

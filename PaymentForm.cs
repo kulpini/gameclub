@@ -386,6 +386,8 @@ namespace gameclub
 
         private void CloseSession(int sessionId)
         {
+            int discount = DiscountComboBox.Text == "" ? 0 : Convert.ToInt32(DiscountComboBox.Text);
+            gameAmount -= Math.Round((gameAmount * discount) / 100);
             int amount = Convert.ToInt32(PaymentSumLabel.Text);
             DateTime finishTime = GetStartTime() + ElapsedTime;
             OleDbConnection connection = new OleDbConnection(connectionString);

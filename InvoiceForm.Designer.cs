@@ -81,7 +81,7 @@
             this.InvoicePanel.Controls.Add(this.pictureBox1);
             this.InvoicePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InvoicePanel.Location = new System.Drawing.Point(0, 0);
-            this.InvoicePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InvoicePanel.Margin = new System.Windows.Forms.Padding(2);
             this.InvoicePanel.Name = "InvoicePanel";
             this.InvoicePanel.Size = new System.Drawing.Size(442, 565);
             this.InvoicePanel.TabIndex = 39;
@@ -165,9 +165,9 @@
             this.label3.Location = new System.Drawing.Point(11, 222);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 22);
+            this.label3.Size = new System.Drawing.Size(87, 22);
             this.label3.TabIndex = 49;
-            this.label3.Text = "Скидка - ";
+            this.label3.Text = "Скидка: ";
             // 
             // SessionTimeLabel
             // 
@@ -315,7 +315,7 @@
             this.panel2.Controls.Add(this.PrintButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 513);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(442, 52);
             this.panel2.TabIndex = 40;
@@ -323,7 +323,7 @@
             // CloseButton
             // 
             this.CloseButton.Location = new System.Drawing.Point(299, 15);
-            this.CloseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(2);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(112, 26);
             this.CloseButton.TabIndex = 40;
@@ -334,7 +334,7 @@
             // PrintButton
             // 
             this.PrintButton.Location = new System.Drawing.Point(36, 15);
-            this.PrintButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PrintButton.Margin = new System.Windows.Forms.Padding(2);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(112, 26);
             this.PrintButton.TabIndex = 39;
@@ -346,7 +346,7 @@
             // 
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(442, 18);
             this.panel4.TabIndex = 42;
