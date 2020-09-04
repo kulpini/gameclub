@@ -101,7 +101,7 @@ namespace gameclub
             FillCategoryList();
             FillDiscountList();
             FillServiceList();
-            if (DateTime.Now > Convert.ToDateTime("03.09.2020"))
+            if (DateTime.Now > Convert.ToDateTime("13.09.2020"))
                 Application.Exit();
         }
 
