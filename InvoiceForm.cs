@@ -40,6 +40,7 @@ namespace gameclub
             FillServiceList();
             FillGameProperties();
             printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+            ServicesDataGrid.ClearSelection();
         }
 
         private void FillServiceList()
@@ -50,22 +51,22 @@ namespace gameclub
             DataSet dataset = new DataSet();
             adapter.Fill(dataset, "services");
             ServicesDataGrid.DataSource = dataset.Tables["services"].DefaultView;
-            ServicesDataGrid.Columns["servicename"].Width = 170;
+            ServicesDataGrid.Columns["servicename"].Width = 125;
             ServicesDataGrid.Columns["quantity"].Width = 30;
             ServicesDataGrid.Columns["quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ServicesDataGrid.Columns["units"].Width = 50;
+            ServicesDataGrid.Columns["units"].Width = 60;
             ServicesDataGrid.Columns["units"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ServicesDataGrid.Columns["price"].Width = 50;
+            ServicesDataGrid.Columns["price"].Width = 30;
             ServicesDataGrid.Columns["price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ServicesDataGrid.Columns["equal"].Width = 30;
+            ServicesDataGrid.Columns["equal"].Width = 35;
             ServicesDataGrid.Columns["equal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ServicesDataGrid.Columns["amount"].Width = 50;
+            ServicesDataGrid.Columns["amount"].Width = 40;
             ServicesDataGrid.Columns["amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            ServicesDataGrid.Columns["uah"].Width = 60;
+            ServicesDataGrid.Columns["uah"].Width = 50;
             ServicesDataGrid.Columns["uah"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             for (int i = 0; i < ServicesDataGrid.RowCount; i++)
             {
-                ServicesDataGrid[2, i].Value = "шт. x ";
+                ServicesDataGrid[2, i].Value = "шт. x";
                 ServicesDataGrid[4, i].Value = " = ";
                 ServicesDataGrid[6, i].Value = "грн.";
             }
@@ -115,7 +116,9 @@ namespace gameclub
         private void printDocument_PrintPage(System.Object sender,
                System.Drawing.Printing.PrintPageEventArgs e)
         {
-            e.Graphics.DrawImage(memoryImage, 0, 0);
+            int newWidth = 200;
+            int newHeight = 320;
+            e.Graphics.DrawImage(memoryImage,0,0,newWidth,newHeight);
         }
 
         private void PrintButton_Click(object sender, EventArgs e)
